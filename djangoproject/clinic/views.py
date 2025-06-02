@@ -4,6 +4,7 @@ from .models import Clinic
 from .serializer import Clinic_serializer
 from rest_framework.response import Response
 from djangoproject.permissions import IsClinicAdminOfClinic
+from rest_framework.exceptions import PermissionDenied
 
 # Create your views here.
 class Clinic_Management(ModelViewSet):
@@ -11,7 +12,9 @@ class Clinic_Management(ModelViewSet):
     serializer_class=Clinic_serializer
     permission_classes=[IsClinicAdminOfClinic]
 
-    def destroy(self, request, *args, **kwargs):
-        instance=self.get_object()
-        self.perform_destroy(instance)
-        return Response({'message':'Deleted successfully'})
+    def create(self, request, *args, **kwargs):
+        #added this method inorder to resolve data discrepancy issues bcz logged in user is able to create clinics without this method but unable 
+        #to get assigned to user so only super admins can create clinics and can assign that clinic to some user using admin page
+        if request.user.role == 'ClinicAdmin':
+            raise PermissionDenied("ClinicAdmins are not allowed to create clinics.")
+        return super().create(request, *args, **kwargs)

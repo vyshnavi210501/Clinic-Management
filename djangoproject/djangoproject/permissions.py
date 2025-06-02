@@ -17,7 +17,7 @@ class IsClinicAdminOfClinic(BasePermission):
             return True
         if request.user.role=='ClinicAdmin':
             if isinstance(obj,Clinic):
-                return obj in Clinic.objects.all()
+                return obj in request.user.clinics.all()
             if hasattr(obj,'clinic'):
                 return obj.clinic in request.user.clinics.all()
         return(False)

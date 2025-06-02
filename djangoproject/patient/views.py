@@ -13,5 +13,5 @@ class PatientManagement(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         clinic=serializer.validated_data['clinic']
         if self.request.user.role in['ClinicAdmin','Superadmin'] and clinic not in self.request.user.clinics.all():
-            raise exceptions.PermissionDenied("Cannpt add patient for specified clinic due to persmission issue")
+            raise exceptions.PermissionDenied("Cannot add patient for specified clinic due to persmission issue")
         serializer.save()
