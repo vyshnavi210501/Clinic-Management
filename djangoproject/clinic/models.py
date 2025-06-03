@@ -9,8 +9,8 @@ class Clinic(models.Model):
     state=models.CharField(max_length=30,null=False)
     contact_number=models.CharField(max_length=15,null=False,unique=True)
     email=models.EmailField(max_length=50,null=False)
-    opening_time=models.TimeField(max_length=20,default='09:00:00')
-    closing_time=models.TimeField(max_length=20,default='18:00:00')
+    opening_time=models.TimeField(max_length=20)
+    closing_time=models.TimeField(max_length=20)
 
     def __str__(self):
         return(self.name)
