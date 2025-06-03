@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Appointment',
     'track_record',
     'rest_framework_simplejwt',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -154,3 +155,13 @@ SIMPLE_JWT = {
 }
 
 SILKY_INTERCEPT_ALL = True
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+}
