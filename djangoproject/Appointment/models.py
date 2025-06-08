@@ -18,12 +18,7 @@ class Appointment(models.Model):
     status=models.CharField(choices=Status.choices,default=Status.BOOKED,max_length=10)
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['therapist', 'date', 'start_time', 'end_time'],
-                name='unique_appointment_per_therapist_time'
-            )
-        ]
+        constraints = []
 
     def __str__(self):
         return f'{self.therapist} {self.clinic} {self.patient}'
